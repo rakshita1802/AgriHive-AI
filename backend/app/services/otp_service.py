@@ -10,9 +10,6 @@ import urllib.parse
 from typing import Dict, Any
 from app.config import settings
 
-# Fast2SMS API Key from environment or config
-FAST2SMS_API_KEY = os.getenv("FAST2SMS_API_KEY", getattr(settings, "FAST2SMS_API_KEY", ""))
-
 # Temporary in-memory OTP cache for verification (mobile_number -> {otp, timestamp})
 _OTP_CACHE: Dict[str, str] = {}
 
@@ -27,7 +24,7 @@ def send_fast2sms_otp(mobile_number: str, otp_code: str) -> Dict[str, Any]:
     # Cache OTP for verification
     _OTP_CACHE[clean_mobile] = otp_code
 
-    api_key = os.getenv("FAST2SMS_API_KEY", "").strip()
+    api_key = (os.getenv("FAST2SMS_API_KEY") or getattr(settings, "FAST2SMS_API_KEY", "")).strip()
     
     if not api_key:
         print(f"[Fast2SMS Service] API Key not set. Simulated SMS OTP '{otp_code}' for mobile +91-{clean_mobile}")
