@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: agrihive_backend
+    restart: always
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./backend/data:/app/data
+
+  frontend:
+    image: nginx:alpine
+    container_name: agrihive_frontend
+    restart: always
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    ports:
+      - "3000:80"
+
+  proxy:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: agrihive_nginx_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+      - frontend
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
