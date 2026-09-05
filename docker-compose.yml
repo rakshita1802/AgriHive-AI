@@ -14,6 +14,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  redis:
+    image: redis:7-alpine
+    container_name: agrihive_redis
+    restart: always
+    ports:
+      - "6379:6379"
+
   backend:
     build:
       context: ./backend
@@ -22,10 +29,32 @@ services:
     restart: always
     env_file:
       - ./backend/.env
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
     ports:
       - "8001:8001"
     depends_on:
       - db
+      - redis
+    volumes:
+      - ./backend/data:/app/data
+
+  celery_worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: agrihive_celery_worker
+    restart: always
+    command: celery -A app.core.celery_app.celery_app worker --loglevel=info
+    env_file:
+      - ./backend/.env
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+    depends_on:
+      - db
+      - redis
     volumes:
       - ./backend/data:/app/data
 

@@ -40,6 +40,16 @@ class Settings(BaseSettings):
         description="Strict list of allowed CORS origins"
     )
 
+    # --- Celery & Redis Task Queue Settings ---------------------------
+    CELERY_BROKER_URL: str = Field(
+        default="redis://localhost:6379/0",
+        description="Redis message broker URL for Celery async worker queue"
+    )
+    CELERY_RESULT_BACKEND: str = Field(
+        default="redis://localhost:6379/1",
+        description="Redis result backend URL for Celery task states"
+    )
+
     # --- Database -----------------------------------------------------
     DATABASE_URL: str = "sqlite:///./data/agrihive.db"
 
