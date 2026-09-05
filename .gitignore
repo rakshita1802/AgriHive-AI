@@ -31,6 +31,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# Documents and presentations
+*.docx
+*.pptx
+
 # IDE / System
 .vscode/
 .idea/
