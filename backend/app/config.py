@@ -5,6 +5,7 @@ Central place for environment-driven settings. Environment variables are loaded
 from `.env` using pydantic-settings.
 """
 import os
+from typing import List, Union
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -24,6 +25,19 @@ class Settings(BaseSettings):
     FAST2SMS_API_KEY: str = Field(
         default="",
         description="Fast2SMS SMS gateway API key"
+    )
+
+    # --- CORS Security Policy ------------------------------------------
+    CORS_ORIGINS: Union[List[str], str] = Field(
+        default=[
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+            "http://localhost:8000",
+            "http://localhost:8001",
+            "https://agrihive.ai",
+            "https://app.agrihive.ai",
+        ],
+        description="Strict list of allowed CORS origins"
     )
 
     # --- Database -----------------------------------------------------

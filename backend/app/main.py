@@ -1,17 +1,7 @@
 """
 AgriHive AI - FastAPI Application Entrypoint.
 
-Privacy-preserving collaborative agricultural risk intelligence platform utilizing:
-- Data Ingestion & Raw Data Layer (Phase 1)
-- Feature Registry & Feature Selection Engine (Phase 2)
-- Water-Stress Dataset & Label Pipeline (Phase 3)
-- Local Machine Learning Baseline (Random Forest) (Phase 4)
-- Multiple Simulated Farm Clients & Feature Separation (Phase 5 & 7)
-- Clustered Federated Learning Engine (Phase 6)
-- New Farm Onboarding & Feature Discovery (Phase 8)
-- Virtual Farm Digital Twin & What-If Simulation (Phase 9 & 10)
-- Particle Swarm Optimization (PSO) (Phase 11)
-- Explainable AI & SHAP Attributions (Phase 12)
+Privacy-preserving collaborative agricultural risk intelligence platform.
 """
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
@@ -52,11 +42,16 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# --- Strict Production CORS Domain Policy ---
+allowed_origins = settings.CORS_ORIGINS
+if isinstance(allowed_origins, str):
+    allowed_origins = [origin.strip() for origin in allowed_origins.split(",") if origin.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allow_headers=["*"],
 )
 
