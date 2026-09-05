@@ -449,10 +449,9 @@ function App() {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex items-center bg-sand-100 p-1 rounded-xl border border-sand-200 text-xs font-bold">
-              <button onClick={() => changeLanguage("en")} className={`px-2.5 py-1 rounded-lg transition-all ${lang === "en" ? "bg-leaf-600 text-white font-extrabold shadow-sm" : "text-ink-950/60"}`}>GB EN</button>
-              <button onClick={() => changeLanguage("ta")} className={`px-2.5 py-1 rounded-lg transition-all ${lang === "ta" ? "bg-leaf-600 text-white font-extrabold shadow-sm" : "text-ink-950/60"}`}>IN தமிழ்</button>
-              <button onClick={() => changeLanguage("hi")} className={`px-2.5 py-1 rounded-lg transition-all ${lang === "hi" ? "bg-leaf-600 text-white font-extrabold shadow-sm" : "text-ink-950/60"}`}>IN हिंदी</button>
+            <div className="flex items-center gap-1 bg-sand-100 p-1 rounded-xl border border-sand-200 text-xs font-bold">
+              <span className="text-sm px-1">🌐</span>
+              <div id="google_translate_element"></div>
             </div>
 
             <button

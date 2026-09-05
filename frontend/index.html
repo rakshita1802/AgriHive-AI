@@ -41,33 +41,71 @@
     background: #FAF9F5;
     margin: 0;
     padding: 0;
+    top: 0px !important;
   }
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-thumb { background: #E4E0D2; border-radius: 4px; }
   .nav-item.active { background: rgba(76,164,119,0.22); color: #fff; }
+
+  /* Google Translate Widget Styling */
+  .goog-te-gadget {
+    font-family: 'Manrope', sans-serif !important;
+    font-size: 12px !important;
+    color: #132019 !important;
+  }
+  .goog-te-gadget .goog-te-combo {
+    margin: 0 !important;
+    padding: 4px 8px !important;
+    border-radius: 10px !important;
+    border: 1px solid #E4E0D2 !important;
+    background: #F1EFE7 !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: #0E1712 !important;
+    outline: none !important;
+    cursor: pointer !important;
+  }
+  .goog-te-gadget span { display: none !important; }
+  .goog-te-banner-frame.skiptranslate, .goog-te-banner-frame, iframe.goog-te-banner-frame {
+    display: none !important;
+    visibility: hidden !important;
+  }
 </style>
+
+<!-- Automatic Dynamic Google Translation Integration -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'en,ta,hi,te,kn,ml,mr,gu,bn,pa',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </head>
 <body class="font-sans text-ink-950 antialiased">
 <div id="root"></div>
 
-<script type="text/babel" data-presets="react" src="./components/hooks.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/icons.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/i18n.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/useApi.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/ui.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/DashboardTab.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/RegionalMapTab.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/DigitalTwinTab.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/XaiTab.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/AnalyticsTab.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/FarmNetworkTab.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/HelpTab.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/FarmsTab.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/IngestionTab.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/RegistryTab.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/SelectionTab.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/UsersTab.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/AuditLogsTab.js?v=31.0.0"></script>
-<script type="text/babel" data-presets="react" src="./components/App.js?v=31.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/hooks.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/icons.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/i18n.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/useApi.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/ui.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/DashboardTab.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/RegionalMapTab.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/DigitalTwinTab.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/XaiTab.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/AnalyticsTab.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/FarmNetworkTab.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/HelpTab.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/FarmsTab.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/IngestionTab.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/RegistryTab.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/SelectionTab.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/UsersTab.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/AuditLogsTab.js?v=32.0.0"></script>
+<script type="text/babel" data-presets="react" src="./components/App.js?v=32.0.0"></script>
 </body>
 </html>
