@@ -1,31 +1,41 @@
 """
 Database engine and session management (SQLAlchemy).
 
-Design principle from the plan (Section 15 - Raw Data vs Model Results):
-this central database stores feature metadata, model/version info, farm
-configuration and RAW DATA THAT THE PROTOTYPE SIMULATES AS "LOCAL" PER FARM.
-In a real multi-node deployment each farm's raw dataset would live on the
-farm's own machine/local DB and only model updates would leave it; for this
-software-only prototype we keep each farm's raw rows logically partitioned
-by farm_id so the separation is explicit and enforceable, and the ingestion
-service never forwards this raw layer to any ML training step directly -
-it always goes through the Feature Registry / Feature Selection Engine first.
+Features production-grade SQLAlchemy Connection Pooling for PostgreSQL,
+AWS RDS, Azure Database for PostgreSQL, and Supabase managed database clusters,
+with SQLite fallback for local development.
 """
 import os
 from contextlib import contextmanager
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 from app.config import settings
 
-# Ensure the ./data directory exists for the default SQLite file.
-if settings.DATABASE_URL.startswith("sqlite"):
+# Determine database dialect
+is_sqlite = settings.DATABASE_URL.startswith("sqlite")
+
+if is_sqlite:
     os.makedirs("data", exist_ok=True)
+    connect_args = {"check_same_thread": False}
+    # Create SQLite engine
+    engine = create_engine(
+        settings.DATABASE_URL,
+        connect_args=connect_args,
+        future=True
+    )
+else:
+    # Production Managed PostgreSQL Connection Pooling
+    engine = create_engine(
+        settings.DATABASE_URL,
+        pool_size=20,
+        max_overflow=10,
+        pool_timeout=30,
+        pool_recycle=1800,
+        pool_pre_ping=True,
+        future=True
+    )
 
-connect_args = {"check_same_thread": False} if settings.DATABASE_URL.startswith("sqlite") else {}
-
-engine = create_engine(settings.DATABASE_URL, connect_args=connect_args, future=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
 
 Base = declarative_base()
