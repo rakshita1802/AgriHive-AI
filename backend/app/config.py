@@ -50,6 +50,16 @@ class Settings(BaseSettings):
         description="Redis result backend URL for Celery task states"
     )
 
+    # --- Observability, APM & Sentry Settings --------------------------
+    SENTRY_DSN: str = Field(
+        default="",
+        description="Sentry Error Tracking & APM DSN URL"
+    )
+    ENABLE_PROMETHEUS_METRICS: bool = Field(
+        default=True,
+        description="Toggle Prometheus metrics endpoint"
+    )
+
     # --- Database -----------------------------------------------------
     DATABASE_URL: str = "sqlite:///./data/agrihive.db"
 
